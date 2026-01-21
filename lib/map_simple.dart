@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -10,8 +9,7 @@ class MapSample extends StatefulWidget {
 }
 
 class MapSampleState extends State<MapSample> {
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
+  late GoogleMapController googleMapController;
 
   static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(30.049162629627705, 31.341898108869827),
@@ -24,8 +22,8 @@ class MapSampleState extends State<MapSample> {
       body: GoogleMap(
         mapType: MapType.hybrid,
         initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
+        onMapCreated: (controller) {
+          googleMapController = controller;
         },
       ),
     );
