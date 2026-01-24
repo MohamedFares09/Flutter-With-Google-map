@@ -72,4 +72,9 @@ class MapSampleState extends State<MapSample> {
       }
     }
   }
+
+  void getLocationData() {
+    location.onLocationChanged.listen((locationDate) {});
+  }
+  
 }
