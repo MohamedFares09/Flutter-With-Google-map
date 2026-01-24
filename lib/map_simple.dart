@@ -63,14 +63,18 @@ class MapSampleState extends State<MapSample> {
     checkAndRequestLocationPermission();
   }
 
-  Future<void> checkAndRequestLocationPermission() async {
+  Future<bool> checkAndRequestLocationPermission() async {
     var hasPermission = await location.hasPermission();
+    if (hasPermission == PermissionStatus.deniedForever) {
+      return false;
+    }
     if (hasPermission == PermissionStatus.denied) {
       hasPermission = await location.requestPermission();
       if (hasPermission != PermissionStatus.granted) {
-        // Todo: handle the case when permission is not granted
+        return false;
       }
     }
+    return true;
   }
 
   void getLocationData() {
@@ -79,7 +83,9 @@ class MapSampleState extends State<MapSample> {
 
   void updataMyLocation() async {
     await checkAndRequestLocationService();
-    await checkAndRequestLocationPermission();
-    getLocationData();
+    var hasPermision = await checkAndRequestLocationPermission();
+    if (hasPermision) {
+      getLocationData();
+    }
   }
 }
