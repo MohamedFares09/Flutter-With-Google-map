@@ -54,10 +54,21 @@ class MapSampleState extends State<MapSample> {
 
   void checkAndRequestLocationService() async {
     bool isServiceEnabled = await location.serviceEnabled();
-    if(!isServiceEnabled) {
+    if (!isServiceEnabled) {
       isServiceEnabled = await location.requestService();
-      if(!isServiceEnabled) {
-        return;
+      if (!isServiceEnabled) {
+        // Todo: handle the case when service is not enabled
+      }
+    }
+    checkAndRequestLocationPermission();
+  }
+
+  void checkAndRequestLocationPermission() async {
+    var hasPermission = await location.hasPermission();
+    if (hasPermission == PermissionStatus.denied) {
+      hasPermission = await location.requestPermission();
+      if (hasPermission != PermissionStatus.granted) {
+        // Todo: handle the case when permission is not granted
       }
     }
   }
