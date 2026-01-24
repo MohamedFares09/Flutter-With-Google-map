@@ -21,7 +21,7 @@ class MapSampleState extends State<MapSample> {
       zoom: 12,
     );
     location = Location();
-    checkAndRequestLocationService();
+    updataMyLocation();
     super.initState();
   }
 
@@ -52,7 +52,7 @@ class MapSampleState extends State<MapSample> {
     );
   }
 
-  void checkAndRequestLocationService() async {
+  Future<void> checkAndRequestLocationService() async {
     bool isServiceEnabled = await location.serviceEnabled();
     if (!isServiceEnabled) {
       isServiceEnabled = await location.requestService();
@@ -63,7 +63,7 @@ class MapSampleState extends State<MapSample> {
     checkAndRequestLocationPermission();
   }
 
-  void checkAndRequestLocationPermission() async {
+  Future<void> checkAndRequestLocationPermission() async {
     var hasPermission = await location.hasPermission();
     if (hasPermission == PermissionStatus.denied) {
       hasPermission = await location.requestPermission();
@@ -76,5 +76,10 @@ class MapSampleState extends State<MapSample> {
   void getLocationData() {
     location.onLocationChanged.listen((locationDate) {});
   }
-  
+
+  void updataMyLocation() async {
+    await checkAndRequestLocationService();
+    await checkAndRequestLocationPermission();
+    getLocationData();
+  }
 }
