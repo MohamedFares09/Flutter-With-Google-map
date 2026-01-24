@@ -63,7 +63,7 @@ class MapSampleState extends State<MapSample> {
         // Todo: handle the case when service is not enabled
       }
     }
-    checkAndRequestLocationPermission();
+   
   }
 
   Future<bool> checkAndRequestLocationPermission() async {
@@ -84,7 +84,7 @@ class MapSampleState extends State<MapSample> {
     location.changeSettings(distanceFilter: 2);
     location.onLocationChanged.listen((locationDate) {
       LatLng latlong = LatLng(locationDate.latitude!, locationDate.longitude!);
-      var cameraPosition = CameraPosition(target: latlong, zoom: 15);
+      var cameraPosition = CameraPosition(target: latlong, zoom: 14);
       var myMarker = Marker(markerId: MarkerId('My Marker'), position: latlong);
       markers.add(myMarker);
       setState(() {});
