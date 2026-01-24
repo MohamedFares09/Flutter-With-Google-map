@@ -10,9 +10,10 @@ class MapSample extends StatefulWidget {
 }
 
 class MapSampleState extends State<MapSample> {
-  late CameraPosition cameraPosition;
+  CameraPosition? cameraPosition;
   late GoogleMapController googleMapController;
   late Location location;
+  Set<Marker> markers = {};
 
   @override
   void initState() {
@@ -21,7 +22,7 @@ class MapSampleState extends State<MapSample> {
       zoom: 12,
     );
     location = Location();
-    updataMyLocation();
+
     super.initState();
   }
 
@@ -29,10 +30,12 @@ class MapSampleState extends State<MapSample> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GoogleMap(
+        markers: markers,
         mapType: MapType.normal,
-        initialCameraPosition: cameraPosition,
+        initialCameraPosition: cameraPosition!,
         onMapCreated: (controller) {
           googleMapController = controller;
+          updataMyLocation();
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -78,7 +81,17 @@ class MapSampleState extends State<MapSample> {
   }
 
   void getLocationData() {
-    location.onLocationChanged.listen((locationDate) {});
+    location.changeSettings(distanceFilter: 2);
+    location.onLocationChanged.listen((locationDate) {
+      LatLng latlong = LatLng(locationDate.latitude!, locationDate.longitude!);
+      var cameraPosition = CameraPosition(target: latlong, zoom: 15);
+      var myMarker = Marker(markerId: MarkerId('My Marker'), position: latlong);
+      markers.add(myMarker);
+      setState(() {});
+      googleMapController.animateCamera(
+        CameraUpdate.newCameraPosition(cameraPosition),
+      );
+    });
   }
 
   void updataMyLocation() async {
