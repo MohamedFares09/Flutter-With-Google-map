@@ -30,4 +30,8 @@ class LocationService {
   void getRealTimeLocationData(void Function(LocationData)? onData) {
     location.onLocationChanged.listen(onData);
   }
+
+  Future<LocationData> getLocation() async {
+    return await location.getLocation();
+  }
 }
