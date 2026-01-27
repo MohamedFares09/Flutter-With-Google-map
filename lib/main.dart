@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_with_google_maps/map_simple.dart';
+import 'package:flutter_with_google_maps/view/route_tracker_app.dart';
 
 void main() {
   runApp(const MyApp());
