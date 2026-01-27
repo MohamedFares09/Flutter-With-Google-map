@@ -10,12 +10,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: MapSample());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: RouteTrakerApp());
   }
 }
 
+// Location Service
+// required permissions
+// get Location
+// display Location
 
-// Location Service 
-// required permissions 
-// get Location 
-// display Location 
+
