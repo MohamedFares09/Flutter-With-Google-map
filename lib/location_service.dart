@@ -25,11 +25,15 @@ class LocationService {
     }
   }
 
-  void getRealTimeLocationData(void Function(LocationData)? onData) {
+  void getRealTimeLocationData(void Function(LocationData)? onData) async {
+    await checkAndRequestLocationService();
+    await checkAndRequestLocationPermission();
     location.onLocationChanged.listen(onData);
   }
 
   Future<LocationData> getLocation() async {
+    await checkAndRequestLocationService();
+    await checkAndRequestLocationPermission();
     return await location.getLocation();
   }
 }
