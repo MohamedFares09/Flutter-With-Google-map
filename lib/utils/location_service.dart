@@ -34,6 +34,7 @@ class LocationService {
   Future<LocationData> getLocation() async {
     await checkAndRequestLocationService();
     await checkAndRequestLocationPermission();
+    await Future.delayed(Duration(seconds: 1));
     return await location.getLocation();
   }
 }

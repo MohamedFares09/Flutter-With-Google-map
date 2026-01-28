@@ -65,7 +65,7 @@ class _RouteTrakerAppState extends State<RouteTrakerApp> {
   }
 }
 
-// create text field 
-// listen to the text field 
-// search place 
-// display result 
+// create text field
+// listen to the text field
+// search place
+// display result
